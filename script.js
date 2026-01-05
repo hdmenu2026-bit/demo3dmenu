@@ -4,6 +4,8 @@ const viewer = document.getElementById("viewer");
 const loader = document.getElementById("loader");
 
 const models = [
+  "/models/1.glb",
+  "/models/2.glb",
   "/models/Chicken_Strips.glb",
   "/models/Cookie.glb",
   "/models/CupCake.glb",
@@ -85,4 +87,5 @@ startScreen.onclick = async () => {
 /* ---------- AR ---------- */
 document.getElementById("arBtn").onclick = () => {
   viewer.activateAR();
+
 };
