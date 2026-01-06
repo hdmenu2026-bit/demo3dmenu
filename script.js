@@ -14,46 +14,16 @@ const models = [
 
 let index = 0;
 
-/* ---------- PRELOAD ---------- */
-const preloadCache = new Set();
-
-function preloadModel(url) {
-  if (preloadCache.has(url)) return;
-
-  const link = document.createElement("link");
-  link.rel = "preload";
-  link.as = "fetch";
-  link.href = url;
-  link.crossOrigin = "anonymous";
-  document.head.appendChild(link);
-
-  preloadCache.add(url);
-}
-
-function preloadNextModels(i) {
-  for (let x = 1; x <= 2; x++) {
-    preloadModel(models[(i + x) % models.length]);
-  }
-}
-
-// preload only first 2 on start screen
-preloadModel(models[0]);
-preloadModel(models[1]);
-
 /* ---------- MODEL SWITCH ---------- */
 function showModel(i) {
   loader.style.display = "flex";
   viewer.classList.add("fade-out");
-
-  setTimeout(() => {
-    viewer.src = models[i];
-    preloadNextModels(i);
-  }, 300);
+  viewer.src = models[i];
 }
 
 viewer.addEventListener("load", () => {
   loader.style.display = "none";
-  requestAnimationFrame(() => viewer.classList.remove("fade-out"));
+  viewer.classList.remove("fade-out");
 });
 
 /* ---------- NAVIGATION ---------- */
@@ -87,5 +57,4 @@ startScreen.onclick = async () => {
 /* ---------- AR ---------- */
 document.getElementById("arBtn").onclick = () => {
   viewer.activateAR();
-
 };
