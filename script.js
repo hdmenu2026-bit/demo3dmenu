@@ -2,14 +2,14 @@ const startScreen = document.getElementById("start");
 const video = document.getElementById("camera");
 const viewer = document.getElementById("viewer");
 const loader = document.getElementById("loader");
+const foodName = document.getElementById("foodName");
+const foodPrice = document.getElementById("foodPrice");
 
 const models = [
-  "/models/1.glb",
-  "/models/2.glb",
-  "/models/Chicken_Strips.glb",
-  "/models/Cookie.glb",
-  "/models/CupCake.glb",
-  "/models/sushi.glb"
+  { src: "/models/Chicken_Strips.glb", name: "Chicken Strips", price: "$5.49" },
+  { src: "/models/Cookie.glb", name: "Chocolate Cookie", price: "$2.99" },
+  { src: "/models/CupCake.glb", name: "Vanilla Cupcake", price: "$3.49" },
+  { src: "/models/sushi.glb", name: "Sushi Platter", price: "$9.99" }
 ];
 
 let index = 0;
@@ -18,7 +18,11 @@ let index = 0;
 function showModel(i) {
   loader.style.display = "flex";
   viewer.classList.add("fade-out");
-  viewer.src = models[i];
+
+  foodName.textContent = models[i].name;
+  foodPrice.textContent = models[i].price;
+
+  viewer.src = models[i].src;
 }
 
 viewer.addEventListener("load", () => {
@@ -58,3 +62,4 @@ startScreen.onclick = async () => {
 document.getElementById("arBtn").onclick = () => {
   viewer.activateAR();
 };
+
