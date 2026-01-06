@@ -6,10 +6,10 @@ const foodName = document.getElementById("foodName");
 const foodPrice = document.getElementById("foodPrice");
 
 const models = [
-  { src: "/models/Chicken_Strips.glb", name: "Chicken Strips", price: "$5.49" },
-  { src: "/models/Cookie.glb", name: "Chocolate Cookie", price: "$2.99" },
-  { src: "/models/CupCake.glb", name: "Vanilla Cupcake", price: "$3.49" },
-  { src: "/models/sushi.glb", name: "Sushi Platter", price: "$9.99" }
+  { src: "/models/Chicken_Strips.glb", name: "Chicken Strips", price: "Rs 1,199" },
+  { src: "/models/Cookie.glb", name: "Chocolate Cookie", price: "Rs 449" },
+  { src: "/models/CupCake.glb", name: "Vanilla Cupcake", price: "Rs 749" },
+  { src: "/models/sushi.glb", name: "Sushi Platter", price: "Rs 2,299" }
 ];
 
 let index = 0;
@@ -62,4 +62,5 @@ startScreen.onclick = async () => {
 document.getElementById("arBtn").onclick = () => {
   viewer.activateAR();
 };
+
 
