@@ -5,6 +5,7 @@ const loader = document.getElementById("loader");
 const foodName = document.getElementById("foodName");
 const foodPrice = document.getElementById("foodPrice");
 
+/* ---------- MODELS ---------- */
 const models = [
   { src: "/models/Chicken_Strips_lt.glb", name: "Chicken Strips", price: "Rs 1,199" },
   { src: "/models/Cookie_big.glb", name: "Chocolate Cookie", price: "Rs 449" },
@@ -17,20 +18,50 @@ const models = [
 
 let index = 0;
 
+/* ---------- PRELOAD ---------- */
+const preloadCache = new Set();
+
+function preloadModel(url) {
+  if (!url || preloadCache.has(url)) return;
+
+  const link = document.createElement("link");
+  link.rel = "preload";
+  link.as = "fetch";
+  link.href = url;
+  link.crossOrigin = "anonymous";
+  document.head.appendChild(link);
+
+  preloadCache.add(url);
+}
+
+function preloadNextModels(i) {
+  for (let x = 1; x <= 2; x++) {
+    preloadModel(models[(i + x) % models.length].src); // ✅ FIX
+  }
+}
+
+// preload first two
+preloadModel(models[0].src); // ✅ FIX
+preloadModel(models[1].src); // ✅ FIX
+
 /* ---------- MODEL SWITCH ---------- */
 function showModel(i) {
   loader.style.display = "flex";
   viewer.classList.add("fade-out");
 
+  // text updates are instant and free
   foodName.textContent = models[i].name;
   foodPrice.textContent = models[i].price;
 
-  viewer.src = models[i].src;
+  setTimeout(() => {
+    viewer.src = models[i].src; // ✅ FIX
+    preloadNextModels(i);
+  }, 300);
 }
 
 viewer.addEventListener("load", () => {
   loader.style.display = "none";
-  viewer.classList.remove("fade-out");
+  requestAnimationFrame(() => viewer.classList.remove("fade-out"));
 });
 
 /* ---------- NAVIGATION ---------- */
@@ -65,7 +96,3 @@ startScreen.onclick = async () => {
 document.getElementById("arBtn").onclick = () => {
   viewer.activateAR();
 };
-
-
-
-
