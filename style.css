@@ -162,12 +162,14 @@ model-viewer.fade-out {
 
 .top-header {
   position: fixed;
-  top: env(safe-area-inset-top, 32px); /* more breathing space */
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   z-index: 3;
   pointer-events: none;
+
+  padding-top: calc(24px + env(safe-area-inset-top));
 }
 
 .menu-title {
@@ -184,6 +186,7 @@ model-viewer.fade-out {
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.65);
 }
+
 
 
 
